@@ -867,6 +867,182 @@ body {
     transform: translateX(-3px);
 }
 
+/* 샘플 보고서 미리보기 */
+.sample-report-section {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xl);
+    margin-top: var(--space-xl);
+}
+
+.sample-report-header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.sample-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    padding: var(--space-xs) var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.sample-report-header h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-black);
+    margin-bottom: var(--space-sm);
+}
+
+.sample-report-header p {
+    font-size: 0.875rem;
+    color: var(--color-gray);
+}
+
+.sample-report-preview {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.report-preview-item {
+    display: flex;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--color-bg);
+    border-left: 3px solid var(--color-accent);
+}
+
+.preview-icon {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--color-accent);
+    flex-shrink: 0;
+    width: 32px;
+}
+
+.preview-content h4 {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-black);
+    margin-bottom: var(--space-xs);
+}
+
+.preview-content p {
+    font-size: 0.8125rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+}
+
+/* 성공 스토리 섹션 */
+.success-story-section {
+    background: var(--color-dark);
+    padding: var(--space-xl);
+    margin-top: var(--space-xl);
+    color: var(--color-white);
+}
+
+.story-header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.story-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--color-accent-light);
+    border: 1px solid var(--color-accent-light);
+    padding: var(--space-xs) var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.story-header h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-white);
+    margin-bottom: var(--space-sm);
+}
+
+.story-header p {
+    font-size: 0.875rem;
+    color: var(--color-lighter-gray);
+}
+
+.story-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.story-card {
+    background: var(--color-dark-gray);
+    padding: var(--space-lg);
+    border-left: 3px solid var(--color-accent);
+}
+
+.story-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+}
+
+.story-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-light-gray);
+    letter-spacing: 0.05em;
+}
+
+.story-result {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent-light);
+    background: rgba(154, 138, 110, 0.2);
+    padding: var(--space-xs) var(--space-sm);
+}
+
+.story-card-content h4 {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-white);
+    margin-bottom: var(--space-sm);
+}
+
+.story-card-content p {
+    font-size: 0.8125rem;
+    color: var(--color-lighter-gray);
+    line-height: 1.7;
+}
+
+.story-quote {
+    text-align: center;
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-dark-gray);
+}
+
+.story-quote p {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--color-white);
+    margin-bottom: var(--space-sm);
+    line-height: 1.6;
+}
+
+.story-quote span {
+    font-size: 0.8125rem;
+    color: var(--color-light-gray);
+}
+
 /* 푸터 */
 .footer {
     background: var(--color-white);
@@ -1181,6 +1357,57 @@ body {
                         <p class="closing-message">이 가이드는 현재 단계에 맞춰 제공된 최소한의 방향입니다.<br>이 이상은 지금 단계에서 다루지 않습니다.</p>
                     </div>
 
+                    <!-- 정밀 진단 보고서 미리보기 -->
+                    <div class="sample-report-section">
+                        <div class="sample-report-header">
+                            <span class="sample-badge">PREMIUM REPORT</span>
+                            <h3>정밀 진단 시 받을 수 있는 보고서</h3>
+                            <p>1:1 컨설팅을 통해 더 깊이 있는 분석을 받아보세요</p>
+                        </div>
+
+                        <div class="sample-report-preview">
+                            <div class="report-preview-item">
+                                <div class="preview-icon">01</div>
+                                <div class="preview-content">
+                                    <h4>매출 구조 정밀 분석</h4>
+                                    <p>메뉴별 수익률, 객단가 분석, 시간대별 매출 패턴 등 숫자로 보는 현재 상태</p>
+                                </div>
+                            </div>
+                            <div class="report-preview-item">
+                                <div class="preview-icon">02</div>
+                                <div class="preview-content">
+                                    <h4>고객 흐름 진단</h4>
+                                    <p>신규 유입 경로, 재방문율, 이탈 원인 분석 및 개선 포인트 도출</p>
+                                </div>
+                            </div>
+                            <div class="report-preview-item">
+                                <div class="preview-icon">03</div>
+                                <div class="preview-content">
+                                    <h4>90일 실행 로드맵</h4>
+                                    <p>주차별 구체적 실행 계획과 체크리스트, KPI 설정까지</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 유형별 성공 스토리 -->
+                    <div class="success-story-section">
+                        <div class="story-header">
+                            <span class="story-badge">SUCCESS STORY</span>
+                            <h3>같은 유형, 다른 결과</h3>
+                            <p id="story-subtitle">이 유형의 원장님들은 이렇게 변화했습니다</p>
+                        </div>
+
+                        <div class="story-cards" id="story-cards">
+                            <!-- JS로 유형별 동적 생성 -->
+                        </div>
+
+                        <div class="story-quote">
+                            <p id="story-quote-text">"처음엔 반신반의했는데, 정말 3개월 만에 달라졌어요"</p>
+                            <span id="story-quote-author">— 서울 강남 K원장</span>
+                        </div>
+                    </div>
+
                     <!-- 데이터 수집 폼 -->
                     <div class="result-contact-form">
                         <div class="contact-form-header">
@@ -1304,7 +1531,12 @@ const OWNER_TYPES = {
         warning: '감각은 시간이 지나면 무뎌집니다. 지금은 버틸 수 있지만, 경쟁이 심해지면 "왜 안 되지?"라는 질문에 답할 수 없게 됩니다. 데이터 없는 운영은 3개월 뒤 방향을 잃게 만듭니다.',
         doList: ['매일 매출과 고객 수만 기록하기 시작하세요', '이번 주 들어온 신규 고객에게 "어디서 알고 오셨어요?" 물어보세요', '가장 많이 팔리는 메뉴 3개를 적어두세요'],
         stopList: ['숫자 없이 "느낌상" 개선하려는 시도', '경쟁 샵 따라하기 (이유 모르고)', '광고를 "일단 해보자"는 식으로 시작하기'],
-        notYetList: ['복잡한 데이터 분석 툴 도입', '마케팅 자동화 시스템', 'ROI 계산 공식']
+        notYetList: ['복잡한 데이터 분석 툴 도입', '마케팅 자동화 시스템', 'ROI 계산 공식'],
+        successStories: [
+            { label: '서울 마포 · 네일샵', result: '매출 35% 상승', title: '15년차 베테랑, 숫자의 힘을 알다', desc: '감으로만 운영하던 샵에 간단한 매출 기록만 시작했더니, 어떤 메뉴가 수익성이 좋은지 처음 알게 됐어요. 3개월 만에 메뉴 구성을 바꾸고 객단가가 올랐습니다.' },
+            { label: '부산 해운대 · 피부샵', result: '신규 문의 2배', title: '왜 오는지 알았더니 마케팅이 쉬워졌어요', desc: '고객에게 "어디서 오셨어요?" 물어보기 시작했더니, 블로그보다 인스타 유입이 많다는 걸 알았어요. 인스타에 집중하니 문의가 2배로 늘었습니다.' }
+        ],
+        quote: { text: '"숫자가 어렵다고 생각했는데, 기록만 해도 보이는 게 달라져요"', author: '— 서울 마포 L원장' }
     },
     overworked: {
         name: '노력 과다형 원장',
@@ -1313,7 +1545,12 @@ const OWNER_TYPES = {
         warning: '체력과 의욕이 먼저 소진됩니다. 지금 방식을 유지하면 3개월 뒤 번아웃이 올 확률이 높습니다. "더 열심히"가 아니라 "다르게"가 필요합니다.',
         doList: ['이번 주 한 일 중 "매출에 직접 연결된 것"만 체크해보세요', '콘텐츠 제작 시간을 절반으로 줄이고, 성과를 비교해보세요', '하루 중 1시간은 "안 하기"를 연습하세요'],
         stopList: ['할 일을 더 늘리기', '"남들도 다 이렇게 하니까" 따라하기', '결과 측정 없이 새로운 것 시도하기'],
-        notYetList: ['새로운 SNS 채널 추가', '광고 채널 확장', '신메뉴 개발']
+        notYetList: ['새로운 SNS 채널 추가', '광고 채널 확장', '신메뉴 개발'],
+        successStories: [
+            { label: '경기 분당 · 속눈썹샵', result: '근무시간 30% 감소', title: '덜 했더니 오히려 매출이 올랐어요', desc: '매일 3시간씩 콘텐츠 만들던 걸 1시간으로 줄였어요. 남은 시간에 기존 고객 관리에 집중했더니, 재방문율이 높아지고 매출도 올랐습니다.' },
+            { label: '서울 강서 · 왁싱샵', result: '순이익 40% 증가', title: '안 해도 되는 일을 찾았더니 삶이 바뀌었어요', desc: '하던 일의 절반이 매출과 관련 없다는 걸 알고 충격받았어요. 과감히 정리하니 시간도 생기고, 집중해야 할 곳이 명확해졌습니다.' }
+        ],
+        quote: { text: '"열심히만 하면 되는 줄 알았는데, 방향이 더 중요하더라고요"', author: '— 경기 분당 P원장' }
     },
     adDependent: {
         name: '광고 의존형 원장',
@@ -1322,7 +1559,12 @@ const OWNER_TYPES = {
         warning: '광고비는 계속 오르고, 효율은 계속 떨어집니다. 지금 구조를 바꾸지 않으면, 3개월 뒤에는 광고비를 더 써야 같은 매출을 유지할 수 있습니다.',
         doList: ['이번 달 광고로 온 고객 중 "재방문한 사람"이 몇 명인지 체크하세요', '광고 없이 들어온 고객이 있다면, 어디서 왔는지 분석하세요', '기존 고객 재방문율부터 높이는 데 집중하세요'],
         stopList: ['광고비 늘려서 문제 해결하려는 시도', '새로운 광고 채널 추가하기', '재방문 구조 없이 신규 유입만 늘리기'],
-        notYetList: ['광고 A/B 테스트 세분화', '리타겟팅 캠페인', '퍼포먼스 마케팅 고도화']
+        notYetList: ['광고 A/B 테스트 세분화', '리타겟팅 캠페인', '퍼포먼스 마케팅 고도화'],
+        successStories: [
+            { label: '인천 부평 · 네일샵', result: '광고비 50% 절감', title: '재방문 구조를 만들었더니 광고가 줄었어요', desc: '광고로 온 고객의 재방문율이 10%도 안 됐어요. 시술 후 관리 문자와 재방문 혜택을 만들었더니, 3개월 후 광고비를 절반으로 줄여도 매출이 유지됐습니다.' },
+            { label: '대전 서구 · 피부샵', result: '재방문율 65%', title: '신규보다 기존 고객이 답이었어요', desc: '매달 100만원씩 광고비 쓰던 게 아까워서, 기존 고객 재방문에 집중했어요. 6개월 후 재방문율 65%를 달성하고, 광고 없이도 예약이 찹니다.' }
+        ],
+        quote: { text: '"광고는 시작일 뿐, 진짜 매출은 재방문에서 나와요"', author: '— 인천 부평 J원장' }
     },
     stagnant: {
         name: '성장 정체형 원장',
@@ -1331,7 +1573,12 @@ const OWNER_TYPES = {
         warning: '시장은 계속 바뀌고, 경쟁은 심해집니다. 지금 구조를 업그레이드하지 않으면, 3개월 뒤에는 "예전엔 잘 됐는데..."라는 말을 하게 됩니다.',
         doList: ['현재 매출 구조에서 "성장 여지가 있는 부분"을 찾아보세요', '객단가를 높일 수 있는 메뉴/서비스가 있는지 검토하세요', '상위 10% 고객이 누구인지 분석하세요'],
         stopList: ['"유지만 하자"는 마인드로 운영하기', '새로운 시도 없이 기존 방식만 반복하기', '경쟁 샵의 성장을 무시하기'],
-        notYetList: ['전면적인 리브랜딩', '신규 지점 확장', '직원 채용 확대']
+        notYetList: ['전면적인 리브랜딩', '신규 지점 확장', '직원 채용 확대'],
+        successStories: [
+            { label: '서울 강남 · 속눈썹샵', result: '객단가 25% 상승', title: '같은 고객, 다른 매출', desc: '상위 20% 고객이 매출의 60%를 만든다는 걸 알았어요. 이 분들을 위한 프리미엄 메뉴를 만들었더니, 전체 객단가가 25% 올랐습니다.' },
+            { label: '광주 서구 · 네일샵', result: '월 매출 800만원 돌파', title: '정체된 5년을 3개월 만에 깼어요', desc: '5년간 월 500만원대에서 벗어나지 못했어요. 매출 구조를 분석하고, 수익성 낮은 메뉴를 정리했더니 3개월 만에 800만원을 돌파했습니다.' }
+        ],
+        quote: { text: '"유지가 목표면 하락은 시간문제예요. 작은 변화부터 시작하세요"', author: '— 서울 강남 K원장' }
     },
     noSystem: {
         name: '시스템 미구축형 원장',
@@ -1340,7 +1587,12 @@ const OWNER_TYPES = {
         warning: '지금 구조는 "원장님 = 샵"입니다. 원장님이 아프거나 쉬면 샵도 멈춥니다. 3개월 뒤에도 이 구조라면, 성장은커녕 체력 고갈이 먼저 옵니다.',
         doList: ['자주 하는 답변/응대를 템플릿으로 만들어두세요', '고객 정보를 엑셀이나 앱에 기록하기 시작하세요', '이번 주 반복한 일을 "프로세스"로 정리해보세요'],
         stopList: ['모든 것을 머릿속에만 담아두기', '직원 없이 혼자 다 하려고 하기', '기록 없이 "기억"에 의존하기'],
-        notYetList: ['CRM 시스템 도입', '예약 자동화 툴', '재고관리 시스템']
+        notYetList: ['CRM 시스템 도입', '예약 자동화 툴', '재고관리 시스템'],
+        successStories: [
+            { label: '경기 일산 · 피부샵', result: '주 1회 휴무 확보', title: '시스템을 만들었더니 쉴 수 있게 됐어요', desc: '3년간 하루도 못 쉬었어요. 고객 응대 템플릿과 예약 관리 시트를 만들었더니, 직원에게 일부를 맡길 수 있게 됐고 드디어 휴무일이 생겼습니다.' },
+            { label: '서울 송파 · 왁싱샵', result: '직원 채용 성공', title: '내 머릿속을 정리했더니 직원 교육이 쉬워졌어요', desc: '직원을 뽑아도 가르칠 게 너무 많아서 포기했었어요. 모든 프로세스를 문서화했더니, 신입 직원이 2주 만에 독립할 수 있게 됐습니다.' }
+        ],
+        quote: { text: '"시스템은 복잡한 게 아니에요. 반복되는 일을 정리하는 것부터 시작하세요"', author: '— 경기 일산 M원장' }
     }
 };
 
@@ -1538,7 +1790,38 @@ function showResult() {
     DOM.resultNotYetList.innerHTML = '';
     typeData.notYetList.forEach(item => { const li = document.createElement('li'); li.textContent = item; DOM.resultNotYetList.appendChild(li); });
 
+    // 성공 스토리 렌더링
+    renderSuccessStories(typeData);
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderSuccessStories(typeData) {
+    const storyCards = document.getElementById('story-cards');
+    const storyQuoteText = document.getElementById('story-quote-text');
+    const storyQuoteAuthor = document.getElementById('story-quote-author');
+
+    // 스토리 카드 렌더링
+    storyCards.innerHTML = '';
+    typeData.successStories.forEach(story => {
+        const card = document.createElement('div');
+        card.className = 'story-card';
+        card.innerHTML = `
+            <div class="story-card-header">
+                <span class="story-label">${story.label}</span>
+                <span class="story-result">${story.result}</span>
+            </div>
+            <div class="story-card-content">
+                <h4>${story.title}</h4>
+                <p>${story.desc}</p>
+            </div>
+        `;
+        storyCards.appendChild(card);
+    });
+
+    // 인용구 렌더링
+    storyQuoteText.textContent = typeData.quote.text;
+    storyQuoteAuthor.textContent = typeData.quote.author;
 }
 
 function saveUserData() {
