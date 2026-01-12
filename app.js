@@ -67,15 +67,29 @@ function initializeDOM() {
 }
 
 function initializeApp() {
+    // URL 파라미터 확인 - reset이 있으면 초기화
+    const urlParams = new URLSearchParams(window.location.search);
+    const shouldReset = urlParams.get('reset') === 'true' || urlParams.get('start') === 'true';
+
+    if (shouldReset) {
+        // localStorage 초기화
+        localStorage.removeItem('bsc_state');
+        localStorage.removeItem('bsc_user_id');
+        // URL에서 파라미터 제거 (히스토리 정리)
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     // 사용자 ID 생성 또는 복구
     AppState.userId = localStorage.getItem('bsc_user_id') || generateUserId();
     localStorage.setItem('bsc_user_id', AppState.userId);
 
-    // 이전 진행 상태 복구
-    const savedState = localStorage.getItem('bsc_state');
-    if (savedState) {
-        const parsed = JSON.parse(savedState);
-        Object.assign(AppState, parsed);
+    // 이전 진행 상태 복구 (reset이 아닌 경우에만)
+    if (!shouldReset) {
+        const savedState = localStorage.getItem('bsc_state');
+        if (savedState) {
+            const parsed = JSON.parse(savedState);
+            Object.assign(AppState, parsed);
+        }
     }
 
     // 로딩 애니메이션 후 앱 표시
@@ -84,6 +98,12 @@ function initializeApp() {
         setTimeout(() => {
             DOM.loadingScreen.classList.add('hidden');
             DOM.app.classList.remove('hidden');
+
+            // reset인 경우 항상 인트로부터 시작
+            if (shouldReset) {
+                // 인트로 화면 유지 (기본 상태)
+                return;
+            }
 
             // 이전 상태에 따라 적절한 화면 표시
             if (AppState.userType && AppState.trackerDay > 1) {
