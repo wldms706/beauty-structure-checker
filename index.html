@@ -1189,6 +1189,175 @@ body {
     .day-dot { width: 24px; height: 24px; font-size: 0.625rem; }
     .admin-stats { grid-template-columns: 1fr; }
 }
+
+/* 개인정보 입력 폼 스타일 */
+.info-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-form-content {
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+}
+
+.info-form-badge {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--color-gray);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xs) var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+.info-form-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--color-black);
+    margin-bottom: var(--space-md);
+}
+
+.info-form-desc {
+    font-size: 0.875rem;
+    color: var(--color-gray);
+    margin-bottom: var(--space-2xl);
+}
+
+.user-info-form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: var(--space-lg);
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--color-dark);
+    margin-bottom: var(--space-sm);
+}
+
+.form-group label .required {
+    color: #c9302c;
+}
+
+.form-group input {
+    width: 100%;
+    padding: var(--space-md);
+    font-size: 0.9375rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
+    transition: border-color 0.2s ease;
+    font-family: var(--font-body);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--color-black);
+}
+
+.form-group input::placeholder {
+    color: var(--color-gray);
+}
+
+.privacy-consent {
+    margin: var(--space-xl) 0;
+    padding: var(--space-lg);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+}
+
+.consent-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    cursor: pointer;
+    margin-bottom: var(--space-md);
+}
+
+.consent-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.consent-checkbox .checkmark {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.consent-checkbox input[type="checkbox"]:checked + .checkmark {
+    background: var(--color-black);
+    border-color: var(--color-black);
+}
+
+.consent-checkbox input[type="checkbox"]:checked + .checkmark::after {
+    content: "✓";
+    color: var(--color-white);
+    font-size: 0.75rem;
+}
+
+.consent-text {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-dark);
+    line-height: 1.4;
+}
+
+.privacy-notice {
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+}
+
+.privacy-title {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-dark);
+    margin-bottom: var(--space-sm);
+}
+
+.privacy-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-sm) 0;
+}
+
+.privacy-list li {
+    font-size: 0.75rem;
+    color: var(--color-gray);
+    margin-bottom: var(--space-xs);
+    line-height: 1.5;
+}
+
+.privacy-list li strong {
+    color: var(--color-dark);
+}
+
+.privacy-note {
+    font-size: 0.6875rem;
+    color: var(--color-gray);
+    font-style: italic;
+}
+
+.btn-submit-info {
+    width: 100%;
+    margin-top: var(--space-md);
+}
     </style>
 </head>
 <body>
@@ -1257,6 +1426,52 @@ body {
                         <span class="btn-arrow">→</span>
                     </button>
                     <p class="intro-note">약 5분 소요 · 결과는 즉시 확인</p>
+                </div>
+            </section>
+
+            <!-- 개인정보 입력 -->
+            <section id="info-section" class="section info-section hidden">
+                <div class="info-form-content">
+                    <div class="info-form-badge">INFORMATION</div>
+                    <h2 class="info-form-title">진단 시작 전<br>간단한 정보를 입력해주세요</h2>
+                    <p class="info-form-desc">입력하신 정보는 맞춤 컨설팅 안내에만 활용됩니다.</p>
+
+                    <form class="user-info-form" id="user-info-form">
+                        <div class="form-group">
+                            <label for="user-name">성함 <span class="required">*</span></label>
+                            <input type="text" id="user-name" name="name" placeholder="이름을 입력해주세요" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-phone">연락처 <span class="required">*</span></label>
+                            <input type="tel" id="user-phone" name="phone" placeholder="010-0000-0000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-shop">샵 상호명 <span class="required">*</span></label>
+                            <input type="text" id="user-shop" name="shop" placeholder="샵 이름을 입력해주세요" required>
+                        </div>
+
+                        <div class="privacy-consent">
+                            <label class="consent-checkbox">
+                                <input type="checkbox" id="privacy-agree" required>
+                                <span class="checkmark"></span>
+                                <span class="consent-text">[필수] 개인정보 수집 및 이용에 동의합니다.</span>
+                            </label>
+                            <div class="privacy-notice">
+                                <p class="privacy-title">개인정보 수집 및 이용 안내</p>
+                                <ul class="privacy-list">
+                                    <li><strong>수집항목:</strong> 성함, 연락처, 샵 상호명</li>
+                                    <li><strong>수집목적:</strong> 진단 결과 안내 및 맞춤 컨설팅 정보 제공</li>
+                                    <li><strong>보유기간:</strong> 수집일로부터 1년간 보관 후 파기</li>
+                                </ul>
+                                <p class="privacy-note">* 동의를 거부할 권리가 있으며, 거부 시 진단 서비스 이용이 제한됩니다.</p>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-submit-info">
+                            <span>진단 시작하기</span>
+                            <span class="btn-arrow">→</span>
+                        </button>
+                    </form>
                 </div>
             </section>
 
@@ -1654,6 +1869,9 @@ function initializeApp() {
     const savedState = localStorage.getItem('bsc_state');
     if (savedState) Object.assign(AppState, JSON.parse(savedState));
 
+    // 개인정보 입력 폼 이벤트 설정
+    setupInfoForm();
+
     setTimeout(() => {
         DOM.loadingScreen.classList.add('fade-out');
         setTimeout(() => {
@@ -1672,14 +1890,87 @@ function initializeApp() {
 function generateUserId() { return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9); }
 function saveState() { localStorage.setItem('bsc_state', JSON.stringify(AppState)); }
 
+// 사용자 정보 저장 변수
+let userInfo = {
+    name: '',
+    phone: '',
+    shop: ''
+};
+
 function startDiagnosis() {
+    // 인트로 → 개인정보 입력 화면으로 이동
     DOM.introSection.classList.add('hidden');
+    document.getElementById('info-section').classList.remove('hidden');
+}
+
+function startActualDiagnosis() {
+    // 개인정보 입력 완료 → 진단 시작
+    document.getElementById('info-section').classList.add('hidden');
     DOM.diagnosisSection.classList.remove('hidden');
     DOM.progressContainer.classList.remove('hidden');
     AppState.currentQuestion = 0;
     AppState.answers = [];
     showQuestion(0);
     saveState();
+}
+
+// 개인정보 폼 제출 처리
+function setupInfoForm() {
+    const form = document.getElementById('user-info-form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // 개인정보 동의 체크 확인
+            const privacyCheckbox = document.getElementById('privacy-agree');
+            if (!privacyCheckbox.checked) {
+                alert('개인정보 수집 및 이용에 동의해주세요.');
+                return;
+            }
+
+            // 사용자 정보 저장
+            userInfo.name = document.getElementById('user-name').value.trim();
+            userInfo.phone = document.getElementById('user-phone').value.trim();
+            userInfo.shop = document.getElementById('user-shop').value.trim();
+
+            if (!userInfo.name || !userInfo.phone || !userInfo.shop) {
+                alert('모든 필수 항목을 입력해주세요.');
+                return;
+            }
+
+            // Google Sheets로 데이터 전송 (URL 설정 필요)
+            sendToGoogleSheets();
+
+            // 진단 시작
+            startActualDiagnosis();
+        });
+    }
+}
+
+// Google Sheets로 데이터 전송
+function sendToGoogleSheets() {
+    // Google Apps Script 웹 앱 URL을 여기에 입력하세요
+    const GOOGLE_SCRIPT_URL = ''; // 예: 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec'
+
+    if (!GOOGLE_SCRIPT_URL) {
+        console.log('Google Script URL이 설정되지 않았습니다. 데이터:', userInfo);
+        return;
+    }
+
+    fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            timestamp: new Date().toLocaleString('ko-KR'),
+            name: userInfo.name,
+            phone: userInfo.phone,
+            shop: userInfo.shop,
+            type: '' // 진단 완료 후 업데이트
+        })
+    }).catch(err => console.log('데이터 전송 오류:', err));
 }
 
 function showQuestion(index) {
