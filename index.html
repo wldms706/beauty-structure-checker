@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BEAUTY STRUCTURE CHECKER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+/* ========================================
+   BEAUTY STRUCTURE CHECKER
+   미니멀 & 고급스러운 디자인 시스템
+   ======================================== */
+
+:root {
+    --color-black: #111111;
+    --color-dark: #222222;
+    --color-dark-gray: #333333;
+    --color-gray: #666666;
+    --color-mid-gray: #888888;
+    --color-light-gray: #AAAAAA;
+    --color-lighter-gray: #CCCCCC;
+    --color-border: #E5E5E5;
+    --color-bg: #F8F8F8;
+    --color-white: #FFFFFF;
+    --color-accent: #9A8A6E;
+    --color-accent-light: #B8A88C;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+    --space-3xl: 64px;
+    --space-4xl: 96px;
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.25s ease;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--color-dark);
+    background-color: var(--color-white);
+    min-height: 100vh;
+}
+
+.hidden { display: none !important; }
+
+/* 로딩 화면 */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loading-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-content { text-align: center; }
+
+.loading-logo .logo-icon {
+    font-size: 2rem;
+    color: var(--color-black);
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.loading-text {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-gray);
+    letter-spacing: 0.3em;
+    margin-top: var(--space-lg);
+}
+
+.loading-bar {
+    width: 120px;
+    height: 1px;
+    background: var(--color-border);
+    margin: var(--space-xl) auto 0;
+    overflow: hidden;
+}
+
+.loading-progress {
+    width: 0%;
+    height: 100%;
+    background: var(--color-black);
+    animation: loading 2s ease forwards;
+}
+
+@keyframes loading {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* 앱 컨테이너 */
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 헤더 */
+.header {
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-md) var(--space-lg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-inner {
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.logo-icon {
+    font-size: 1.25rem;
+    color: var(--color-black);
+}
+
+.logo-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-black);
+    letter-spacing: 0.15em;
+}
+
+.header-subtitle {
+    font-size: 0.7rem;
+    color: var(--color-light-gray);
+}
+
+/* 진행 바 */
+.progress-container {
+    background: var(--color-white);
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.progress-bar {
+    max-width: 480px;
+    margin: 0 auto;
+    height: 2px;
+    background: var(--color-border);
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--color-black);
+    transition: width var(--transition-normal);
+    width: 0%;
+}
+
+.progress-text {
+    max-width: 480px;
+    margin: var(--space-sm) auto 0;
+    font-size: 0.7rem;
+    color: var(--color-light-gray);
+    text-align: right;
+}
+
+/* 메인 컨텐츠 */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-2xl) var(--space-lg);
+}
+
+/* 인트로 섹션 */
+.intro-section {
+    background: var(--color-white);
+    min-height: calc(100vh - 60px);
+    justify-content: center;
+}
+
+.intro-content {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.intro-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--color-gray);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xs) var(--space-md);
+    margin-bottom: var(--space-2xl);
+}
+
+.intro-title { margin-bottom: var(--space-xl); }
+.intro-title span { display: block; }
+
+.title-accent {
+    font-size: 0.875rem;
+    color: var(--color-mid-gray);
+    margin-bottom: var(--space-sm);
+}
+
+.title-main {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-black);
+    line-height: 1.4;
+}
+
+.title-highlight {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: var(--color-black);
+    font-style: italic;
+    margin-top: var(--space-xs);
+}
+
+.intro-desc {
+    font-size: 0.9375rem;
+    color: var(--color-gray);
+    line-height: 1.8;
+    margin-bottom: var(--space-2xl);
+}
+
+.intro-desc strong {
+    color: var(--color-black);
+    font-weight: 500;
+}
+
+.intro-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-2xl);
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    font-size: 0.8125rem;
+    color: var(--color-gray);
+}
+
+.info-icon {
+    color: var(--color-light-gray);
+    font-size: 0.625rem;
+}
+
+.intro-note {
+    font-size: 0.75rem;
+    color: var(--color-light-gray);
+    margin-top: var(--space-md);
+}
+
+/* 버튼 */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-xl);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--color-black);
+    color: var(--color-white);
+    border: 1px solid var(--color-black);
+}
+
+.btn-primary:hover { background: var(--color-dark); }
+
+.btn-secondary {
+    background: var(--color-white);
+    color: var(--color-dark);
+    border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover { border-color: var(--color-dark); }
+
+.btn-arrow {
+    font-size: 1rem;
+    transition: transform var(--transition-fast);
+}
+
+.btn:hover .btn-arrow { transform: translateX(3px); }
+
+.btn-start {
+    width: 100%;
+    max-width: 280px;
+    padding: var(--space-lg) var(--space-xl);
+}
+
+.btn-cta-main {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    width: 100%;
+    max-width: 300px;
+    padding: var(--space-lg) var(--space-xl);
+    background: var(--color-accent);
+    color: var(--color-white);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    text-decoration: none;
+}
+
+.btn-cta-main:hover { background: var(--color-accent-light); }
+
+/* 진단 섹션 */
+.diagnosis-section {
+    background: var(--color-white);
+    justify-content: center;
+}
+
+.diagnosis-container {
+    max-width: 480px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.question-category {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--color-mid-gray);
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+}
+
+.question-number {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: var(--color-black);
+    margin-bottom: var(--space-lg);
+}
+
+.question-text {
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--color-dark);
+    line-height: 1.7;
+    margin-bottom: var(--space-2xl);
+}
+
+.answers-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.answer-option {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.answer-option:hover { border-color: var(--color-dark-gray); }
+
+.answer-option.selected {
+    background: var(--color-bg);
+    border-color: var(--color-black);
+}
+
+.answer-radio {
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--color-lighter-gray);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    transition: all var(--transition-fast);
+}
+
+.answer-option.selected .answer-radio {
+    border-color: var(--color-black);
+    background: var(--color-black);
+}
+
+.answer-option.selected .answer-radio::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--color-white);
+    border-radius: 50%;
+}
+
+.answer-text {
+    font-size: 0.9375rem;
+    color: var(--color-dark);
+    line-height: 1.6;
+}
+
+.answer-option.selected .answer-text { color: var(--color-black); }
+
+.question-nav {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: var(--space-2xl);
+}
+
+.btn-prev {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.8125rem;
+}
+
+/* 분석 중 화면 */
+.analyzing-section {
+    background: var(--color-bg);
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 60px);
+}
+
+.analyzing-content {
+    text-align: center;
+    max-width: 320px;
+}
+
+.analyzing-icon {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--space-2xl);
+}
+
+.pulse-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--color-lighter-gray);
+    border-radius: 50%;
+    animation: pulse-out 2s ease-out infinite;
+}
+
+.pulse-ring.delay-1 { animation-delay: 0.5s; }
+.pulse-ring.delay-2 { animation-delay: 1s; }
+
+@keyframes pulse-out {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+}
+
+.icon-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    color: var(--color-black);
+}
+
+.analyzing-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--color-black);
+    margin-bottom: var(--space-md);
+}
+
+.analyzing-desc {
+    font-size: 0.875rem;
+    color: var(--color-gray);
+    line-height: 1.8;
+    margin-bottom: var(--space-2xl);
+}
+
+.analyzing-steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    text-align: left;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    opacity: 0.4;
+    transition: all var(--transition-normal);
+}
+
+.step.active { opacity: 1; }
+
+.step-icon {
+    width: 20px;
+    font-size: 0.75rem;
+    color: var(--color-light-gray);
+}
+
+.step.active .step-icon { color: var(--color-black); }
+
+.step-text {
+    font-size: 0.8125rem;
+    color: var(--color-gray);
+}
+
+.step.active .step-text { color: var(--color-dark); }
+
+/* 결과 섹션 */
+.result-section {
+    background: var(--color-bg);
+    padding-bottom: var(--space-4xl);
+}
+
+.result-container {
+    max-width: 480px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.result-header {
+    text-align: center;
+    padding: var(--space-2xl) 0;
+    margin-bottom: var(--space-xl);
+}
+
+.result-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--color-gray);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xs) var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+.result-type {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-black);
+    margin-bottom: var(--space-sm);
+}
+
+.result-subtitle {
+    font-size: 0.9375rem;
+    color: var(--color-gray);
+}
+
+.result-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-md);
+}
+
+.result-card.warning-card {
+    background: var(--color-dark);
+    border-color: var(--color-dark);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.warning-card .card-header { border-bottom-color: var(--color-dark-gray); }
+
+.card-icon {
+    font-size: 1rem;
+    color: var(--color-dark);
+}
+
+.card-icon.warning { color: var(--color-lighter-gray); }
+
+.card-header h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+.warning-card .card-header h3 { color: var(--color-white); }
+
+.card-content {
+    font-size: 0.9375rem;
+    color: var(--color-gray);
+    line-height: 1.8;
+}
+
+.warning-card .card-content { color: var(--color-lighter-gray); }
+
+.card-list { list-style: none; }
+
+.card-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: var(--space-sm) 0;
+    font-size: 0.875rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+}
+
+.card-list li::before {
+    content: '—';
+    color: var(--color-light-gray);
+    flex-shrink: 0;
+}
+
+.result-tip {
+    background: var(--color-white);
+    border: 1px solid var(--color-black);
+    padding: var(--space-xl);
+    margin: var(--space-xl) 0;
+}
+
+.tip-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.tip-icon { font-size: 1rem; }
+
+.tip-header h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+.tip-content {
+    font-size: 0.9375rem;
+    color: var(--color-dark);
+    line-height: 1.8;
+}
+
+.card-icon.do {
+    background: var(--color-black);
+    color: var(--color-white);
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.card-icon.stop {
+    background: var(--color-dark-gray);
+    color: var(--color-white);
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.card-icon.notyet {
+    background: var(--color-light-gray);
+    color: var(--color-white);
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.result-closing {
+    text-align: center;
+    padding: var(--space-2xl) var(--space-xl);
+    margin-top: var(--space-2xl);
+    border-top: 1px solid var(--color-border);
+}
+
+.closing-message {
+    font-size: 0.9375rem;
+    color: var(--color-gray);
+    line-height: 1.8;
+    font-weight: 400;
+}
+
+
+/* 푸터 */
+.footer {
+    background: var(--color-white);
+    border-top: 1px solid var(--color-border);
+    padding: var(--space-md);
+    text-align: center;
+}
+
+.footer p {
+    font-size: 0.7rem;
+    color: var(--color-light-gray);
+}
+
+/* 관리자 패널 */
+.admin-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-white);
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-black);
+    color: var(--color-white);
+}
+
+.admin-header h2 {
+    font-size: 0.9375rem;
+    font-weight: 500;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: var(--color-white);
+    cursor: pointer;
+    padding: var(--space-sm);
+}
+
+.admin-content {
+    padding: var(--space-xl);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-2xl);
+}
+
+.stat-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xl);
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--color-black);
+    margin-bottom: var(--space-sm);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--color-gray);
+}
+
+.admin-table-container { overflow-x: auto; }
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.admin-table th {
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-gray);
+    background: var(--color-bg);
+}
+
+.admin-table td {
+    font-size: 0.8125rem;
+    color: var(--color-dark);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.status-badge.vip {
+    background: var(--color-black);
+    color: var(--color-white);
+}
+
+.status-badge.potential {
+    background: var(--color-bg);
+    color: var(--color-dark);
+    border: 1px solid var(--color-border);
+}
+
+.status-badge.emotional {
+    background: var(--color-bg);
+    color: var(--color-gray);
+}
+
+/* 반응형 */
+@media (max-width: 480px) {
+    .section { padding: var(--space-xl) var(--space-md); }
+    .title-main { font-size: 1.25rem; }
+    .title-highlight { font-size: 1.5rem; }
+    .question-number { font-size: 2rem; }
+    .question-text { font-size: 1rem; }
+    .result-type { font-size: 1.25rem; }
+    .tracker-days { gap: 2px; padding: var(--space-sm); }
+    .day-dot { width: 24px; height: 24px; font-size: 0.625rem; }
+    .admin-stats { grid-template-columns: 1fr; }
+}
+    </style>
+</head>
+<body>
+    <!-- 로딩 화면 -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <span class="logo-icon">◈</span>
+            </div>
+            <div class="loading-text">BEAUTY STRUCTURE CHECKER</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 메인 앱 -->
+    <div id="app" class="app hidden">
+        <header class="header">
+            <div class="header-inner">
+                <div class="logo">
+                    <span class="logo-icon">◈</span>
+                    <span class="logo-text">BSC</span>
+                </div>
+                <div class="header-subtitle">by 이지은</div>
+            </div>
+        </header>
+
+        <div class="progress-container hidden" id="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text" id="progress-text">0 / 30</div>
+        </div>
+
+        <main class="main-content" id="main-content">
+            <!-- 인트로 -->
+            <section id="intro-section" class="section intro-section">
+                <div class="intro-content">
+                    <div class="intro-badge">DIAGNOSTIC TOOL</div>
+                    <h1 class="intro-title">
+                        <span class="title-accent">열심히 하는데</span>
+                        <span class="title-main">안 되는 이유를</span>
+                        <span class="title-highlight">구조로 보여드립니다</span>
+                    </h1>
+                    <p class="intro-desc">
+                        이 진단은 점수를 매기지 않습니다.<br>
+                        당신이 <strong>'어디서 막혀있는지'</strong>를 알려드립니다.
+                    </p>
+                    <div class="intro-info">
+                        <div class="info-item">
+                            <span class="info-icon">◇</span>
+                            <span>30문항 자가진단</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">◇</span>
+                            <span>운영 유형 분석</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">◇</span>
+                            <span>맞춤 실행 가이드</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-start" onclick="startDiagnosis()">
+                        <span>자가진단 시작하기</span>
+                        <span class="btn-arrow">→</span>
+                    </button>
+                    <p class="intro-note">약 5분 소요 · 결과는 즉시 확인</p>
+                </div>
+            </section>
+
+            <!-- 진단 -->
+            <section id="diagnosis-section" class="section diagnosis-section hidden">
+                <div class="diagnosis-container">
+                    <div class="question-category" id="question-category">매출 구조 인식</div>
+                    <div class="question-number" id="question-number">Q1</div>
+                    <h2 class="question-text" id="question-text"></h2>
+                    <div class="answers-container" id="answers-container"></div>
+                    <div class="question-nav">
+                        <button class="btn btn-secondary btn-prev hidden" id="btn-prev" onclick="prevQuestion()">
+                            <span class="btn-arrow">←</span>
+                            <span>이전</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 분석 중 -->
+            <section id="analyzing-section" class="section analyzing-section hidden">
+                <div class="analyzing-content">
+                    <div class="analyzing-icon">
+                        <div class="pulse-ring"></div>
+                        <div class="pulse-ring delay-1"></div>
+                        <div class="pulse-ring delay-2"></div>
+                        <span class="icon-center">◈</span>
+                    </div>
+                    <h2 class="analyzing-title">분석 중입니다</h2>
+                    <p class="analyzing-desc">원장님의 응답을 바탕으로<br>운영 구조를 분석하고 있습니다</p>
+                    <div class="analyzing-steps">
+                        <div class="step active" id="step-1">
+                            <span class="step-icon">✓</span>
+                            <span class="step-text">응답 데이터 수집 완료</span>
+                        </div>
+                        <div class="step" id="step-2">
+                            <span class="step-icon">○</span>
+                            <span class="step-text">영역별 패턴 분석 중...</span>
+                        </div>
+                        <div class="step" id="step-3">
+                            <span class="step-icon">○</span>
+                            <span class="step-text">운영 유형 매칭 중...</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 결과 -->
+            <section id="result-section" class="section result-section hidden">
+                <div class="result-container">
+                    <div class="result-header">
+                        <div class="result-badge">DIAGNOSIS RESULT</div>
+                        <h1 class="result-type" id="result-type"></h1>
+                        <p class="result-subtitle" id="result-subtitle"></p>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="card-header">
+                            <span class="card-icon">◈</span>
+                            <h3>현재 상태 요약</h3>
+                        </div>
+                        <p class="card-content" id="result-summary"></p>
+                    </div>
+
+                    <div class="result-card warning-card">
+                        <div class="card-header">
+                            <span class="card-icon warning">⚠</span>
+                            <h3>3개월 후 예상</h3>
+                        </div>
+                        <p class="card-content" id="result-warning"></p>
+                    </div>
+
+                    <div class="result-card do-card">
+                        <div class="card-header">
+                            <span class="card-icon do">DO</span>
+                            <h3>지금 당장 해도 되는 것</h3>
+                        </div>
+                        <ul class="card-list" id="result-do-list"></ul>
+                    </div>
+
+                    <div class="result-card stop-card">
+                        <div class="card-header">
+                            <span class="card-icon stop">STOP</span>
+                            <h3>지금은 하지 말아야 할 것</h3>
+                        </div>
+                        <ul class="card-list" id="result-stop-list"></ul>
+                    </div>
+
+                    <div class="result-card notyet-card">
+                        <div class="card-header">
+                            <span class="card-icon notyet">NOT YET</span>
+                            <h3>지금은 몰라도 되는 것</h3>
+                        </div>
+                        <ul class="card-list" id="result-notyet-list"></ul>
+                    </div>
+
+                    <div class="result-closing">
+                        <p class="closing-message">이 가이드는 현재 단계에 맞춰 제공된 최소한의 방향입니다.<br>이 이상은 지금 단계에서 다루지 않습니다.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>© 2024 BEAUTY STRUCTURE CHECKER by 이지은</p>
+        </footer>
+    </div>
+
+    <!-- 관리자 패널 -->
+    <div id="admin-panel" class="admin-panel hidden">
+        <div class="admin-header">
+            <h2>관리자 대시보드</h2>
+            <button class="btn-close" onclick="closeAdmin()">×</button>
+        </div>
+        <div class="admin-content">
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <span class="stat-number" id="total-users">0</span>
+                    <span class="stat-label">총 진단 완료</span>
+                </div>
+            </div>
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>진단 유형</th>
+                            <th>마지막 활동</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<script>
+// ========================================
+// 데이터
+// ========================================
+const CATEGORIES = [
+    { id: 'revenue', name: '매출 구조 인식' },
+    { id: 'acquisition', name: '신규 유입 구조' },
+    { id: 'retention', name: '재방문 & 리텐션' },
+    { id: 'content', name: '콘텐츠 & SNS 운영' },
+    { id: 'ads', name: '광고 이해도' },
+    { id: 'execution', name: '시간 사용 & 실행력' }
+];
+
+const QUESTIONS = [
+    // 매출 구조 인식 (5문항)
+    { id: 1, category: 'revenue', text: '현재 매출에서 가장 큰 비중을 차지하는 메뉴가 무엇인지 알고 계신가요?', answers: [{ text: '정확히 알고 있고, 비율도 대략 말할 수 있다', score: 3 }, { text: '어렴풋이 안다', score: 2 }, { text: '잘 모르겠다', score: 1 }] },
+    { id: 2, category: 'revenue', text: '지난 달 총 매출과 순이익을 바로 말할 수 있나요?', answers: [{ text: '바로 말할 수 있다', score: 3 }, { text: '대충은 알지만 정확하진 않다', score: 2 }, { text: '계산해봐야 안다', score: 1 }] },
+    { id: 3, category: 'revenue', text: '고객 1인당 평균 결제 금액(객단가)을 알고 계신가요?', answers: [{ text: '정확한 숫자를 알고 있다', score: 3 }, { text: '대략적으로 감은 있다', score: 2 }, { text: '생각해본 적 없다', score: 1 }] },
+    { id: 4, category: 'revenue', text: '매출이 잘 나오는 요일/시간대를 파악하고 있나요?', answers: [{ text: '데이터로 확인하고 운영에 반영하고 있다', score: 3 }, { text: '느낌상 알고 있다', score: 2 }, { text: '특별히 분석해본 적 없다', score: 1 }] },
+    { id: 5, category: 'revenue', text: '매출 목표를 월 단위로 설정하고 추적하고 있나요?', answers: [{ text: '명확한 목표가 있고, 주기적으로 점검한다', score: 3 }, { text: '목표는 있지만 체계적으로 관리하진 않는다', score: 2 }, { text: '목표 없이 운영하고 있다', score: 1 }] },
+    // 신규 유입 구조 (5문항)
+    { id: 6, category: 'acquisition', text: '최근 30일간 신규 문의는 어디서 가장 많이 들어왔나요?', answers: [{ text: '정확히 알고 있고, 비율도 대략 말할 수 있다', score: 3 }, { text: '어렴풋이 안다', score: 2 }, { text: '잘 모르겠다', score: 1 }] },
+    { id: 7, category: 'acquisition', text: '신규 고객이 우리 샵을 선택한 이유를 알고 있나요?', answers: [{ text: '직접 물어보고 기록하고 있다', score: 3 }, { text: '대략적으로 짐작만 하고 있다', score: 2 }, { text: '물어본 적 없다', score: 1 }] },
+    { id: 8, category: 'acquisition', text: '신규 문의가 예약으로 전환되는 비율을 알고 있나요?', answers: [{ text: '숫자로 파악하고 있다', score: 3 }, { text: '감으로만 알고 있다', score: 2 }, { text: '생각해본 적 없다', score: 1 }] },
+    { id: 9, category: 'acquisition', text: '경쟁 샵과 비교했을 때 우리 샵만의 차별점을 명확히 설명할 수 있나요?', answers: [{ text: '30초 안에 명확하게 설명할 수 있다', score: 3 }, { text: '설명할 수 있지만 명확하진 않다', score: 2 }, { text: '잘 모르겠다', score: 1 }] },
+    { id: 10, category: 'acquisition', text: '신규 유입을 위해 현재 진행 중인 활동이 있나요?', answers: [{ text: '계획적으로 여러 채널을 운영 중이다', score: 3 }, { text: 'SNS 정도만 하고 있다', score: 2 }, { text: '특별히 하고 있는 게 없다', score: 1 }] },
+    // 재방문 & 리텐션 (5문항)
+    { id: 11, category: 'retention', text: '고객의 재방문율을 알고 있나요?', answers: [{ text: '숫자로 파악하고 있다', score: 3 }, { text: '대략 감은 있다', score: 2 }, { text: '측정해본 적 없다', score: 1 }] },
+    { id: 12, category: 'retention', text: '단골 고객(3회 이상 방문)이 전체의 몇 %인지 아시나요?', answers: [{ text: '비율을 알고 관리하고 있다', score: 3 }, { text: '몇 명인지는 대충 안다', score: 2 }, { text: '파악해본 적 없다', score: 1 }] },
+    { id: 13, category: 'retention', text: '재방문을 유도하기 위한 시스템이 있나요?', answers: [{ text: '체계적인 시스템이 있고 운영 중이다', score: 3 }, { text: '가끔 연락하는 정도다', score: 2 }, { text: '별도 시스템 없이 운영한다', score: 1 }] },
+    { id: 14, category: 'retention', text: '고객이 다시 오지 않는 이유를 분석해본 적 있나요?', answers: [{ text: '분석하고 개선하고 있다', score: 3 }, { text: '생각은 해봤지만 구체적 분석은 없다', score: 2 }, { text: '분석해본 적 없다', score: 1 }] },
+    { id: 15, category: 'retention', text: '시술 후 고객에게 별도 follow-up을 하고 있나요?', answers: [{ text: '체계적으로 관리하고 있다', score: 3 }, { text: '가끔 연락한다', score: 2 }, { text: '시술 끝나면 끝이다', score: 1 }] },
+    // 콘텐츠 & SNS 운영 (5문항)
+    { id: 16, category: 'content', text: 'SNS 콘텐츠를 올리는 명확한 기준이나 계획이 있나요?', answers: [{ text: '콘텐츠 캘린더가 있고 계획적으로 운영한다', score: 3 }, { text: '생각날 때 올린다', score: 2 }, { text: '거의 올리지 않는다', score: 1 }] },
+    { id: 17, category: 'content', text: 'SNS에서 가장 반응이 좋았던 콘텐츠 유형을 알고 있나요?', answers: [{ text: '분석해서 알고 있고, 그 방향으로 콘텐츠를 만든다', score: 3 }, { text: '어렴풋이 감은 있다', score: 2 }, { text: '분석해본 적 없다', score: 1 }] },
+    { id: 18, category: 'content', text: 'SNS 팔로워 중 실제 고객으로 전환된 경우가 있나요?', answers: [{ text: '있고, 어느 정도인지 파악하고 있다', score: 3 }, { text: '있는 것 같은데 정확히는 모르겠다', score: 2 }, { text: '모르겠다', score: 1 }] },
+    { id: 19, category: 'content', text: '콘텐츠 제작에 하루 평균 얼마나 시간을 쓰고 있나요?', answers: [{ text: '정해진 시간 내에 효율적으로 하고 있다', score: 3 }, { text: '시간을 많이 쓰지만 효과는 모르겠다', score: 2 }, { text: '거의 신경 쓰지 못한다', score: 1 }] },
+    { id: 20, category: 'content', text: '콘텐츠의 목적이 명확한가요?', answers: [{ text: '각 콘텐츠의 목적이 명확하다', score: 3 }, { text: '일단 올리고 본다', score: 2 }, { text: '목적을 생각해본 적 없다', score: 1 }] },
+    // 광고 이해도 (5문항)
+    { id: 21, category: 'ads', text: '현재 유료 광고를 진행하고 있나요?', answers: [{ text: '진행 중이고 성과를 측정하고 있다', score: 3 }, { text: '진행 중이지만 성과는 잘 모르겠다', score: 2 }, { text: '안 하고 있다', score: 1 }] },
+    { id: 22, category: 'ads', text: '광고비 대비 수익(ROAS)을 계산해본 적 있나요?', answers: [{ text: '정확히 계산하고 관리한다', score: 3 }, { text: '대충 수지가 맞는지 정도만 본다', score: 2 }, { text: '계산해본 적 없다', score: 1 }] },
+    { id: 23, category: 'ads', text: '광고를 통해 들어온 고객이 누구인지 구분할 수 있나요?', answers: [{ text: '추적하고 기록한다', score: 3 }, { text: '물어보면 알 수 있다', score: 2 }, { text: '구분이 안 된다', score: 1 }] },
+    { id: 24, category: 'ads', text: '광고 소재를 테스트하면서 개선하고 있나요?', answers: [{ text: 'A/B 테스트를 하며 최적화한다', score: 3 }, { text: '가끔 바꿔본다', score: 2 }, { text: '한 번 만들면 그대로 쓴다', score: 1 }] },
+    { id: 25, category: 'ads', text: '광고 예산을 어떻게 책정하고 있나요?', answers: [{ text: '매출 목표 기반으로 전략적으로 책정한다', score: 3 }, { text: '여유 있을 때 쓴다', score: 2 }, { text: '기준 없이 운영한다', score: 1 }] },
+    // 시간 사용 & 실행력 (5문항)
+    { id: 26, category: 'execution', text: '하루 일과 중 "운영 개선"에 투자하는 시간이 있나요?', answers: [{ text: '정해진 시간을 확보하고 있다', score: 3 }, { text: '여유 있을 때만 한다', score: 2 }, { text: '시술하느라 시간이 없다', score: 1 }] },
+    { id: 27, category: 'execution', text: '배운 것을 바로 실행에 옮기는 편인가요?', answers: [{ text: '배우면 바로 적용해본다', score: 3 }, { text: '좋은 내용이지만 미루게 된다', score: 2 }, { text: '배워도 실행이 안 된다', score: 1 }] },
+    { id: 28, category: 'execution', text: '지금 가장 시급히 해결해야 할 문제가 무엇인지 알고 있나요?', answers: [{ text: '명확히 알고 있고 해결 방법도 고민 중이다', score: 3 }, { text: '문제는 많은데 뭐부터 해야 할지 모르겠다', score: 2 }, { text: '그냥 바쁘게 살고 있다', score: 1 }] },
+    { id: 29, category: 'execution', text: '주간/월간 운영 계획을 세우고 있나요?', answers: [{ text: '계획을 세우고 실행 여부를 점검한다', score: 3 }, { text: '대략적인 계획은 있다', score: 2 }, { text: '그때그때 대응한다', score: 1 }] },
+    { id: 30, category: 'execution', text: '지금 운영 방식에서 가장 바꾸고 싶은 것이 있다면?', answers: [{ text: '명확히 알고 있고, 언제 바꿀지도 정해뒀다', score: 3 }, { text: '바꾸고 싶은 건 많은데 엄두가 안 난다', score: 2 }, { text: '뭘 바꿔야 할지 모르겠다', score: 1 }] }
+];
+
+const OWNER_TYPES = {
+    intuitive: {
+        name: '감각형 원장',
+        subtitle: '감으로 운영하는 타입',
+        summary: '오랜 경험과 감각으로 샵을 운영하고 있습니다. 손님이 오면 잘 케어하지만, 왜 오는지/왜 안 오는지는 파악하고 있지 않습니다. 데이터 없이 감에 의존하면, 시장이 바뀔 때 대응이 늦어집니다.',
+        warning: '감각은 시간이 지나면 무뎌집니다. 지금은 버틸 수 있지만, 경쟁이 심해지면 "왜 안 되지?"라는 질문에 답할 수 없게 됩니다. 데이터 없는 운영은 3개월 뒤 방향을 잃게 만듭니다.',
+        doList: ['매일 매출과 고객 수만 기록하기 시작하세요', '이번 주 들어온 신규 고객에게 "어디서 알고 오셨어요?" 물어보세요', '가장 많이 팔리는 메뉴 3개를 적어두세요'],
+        stopList: ['숫자 없이 "느낌상" 개선하려는 시도', '경쟁 샵 따라하기 (이유 모르고)', '광고를 "일단 해보자"는 식으로 시작하기'],
+        notYetList: ['복잡한 데이터 분석 툴 도입', '마케팅 자동화 시스템', 'ROI 계산 공식']
+    },
+    overworked: {
+        name: '노력 과다형 원장',
+        subtitle: '열심히 하지만 남는 게 없는 구조',
+        summary: '콘텐츠도 열심히 만들고, 고객 응대도 최선을 다합니다. 그런데 이상하게 매출은 그대로입니다. 노력의 양이 아니라 방향이 문제입니다. 지금 하고 있는 일 중 "안 해도 되는 것"을 찾아야 합니다.',
+        warning: '체력과 의욕이 먼저 소진됩니다. 지금 방식을 유지하면 3개월 뒤 번아웃이 올 확률이 높습니다. "더 열심히"가 아니라 "다르게"가 필요합니다.',
+        doList: ['이번 주 한 일 중 "매출에 직접 연결된 것"만 체크해보세요', '콘텐츠 제작 시간을 절반으로 줄이고, 성과를 비교해보세요', '하루 중 1시간은 "안 하기"를 연습하세요'],
+        stopList: ['할 일을 더 늘리기', '"남들도 다 이렇게 하니까" 따라하기', '결과 측정 없이 새로운 것 시도하기'],
+        notYetList: ['새로운 SNS 채널 추가', '광고 채널 확장', '신메뉴 개발']
+    },
+    adDependent: {
+        name: '광고 의존형 원장',
+        subtitle: '광고 끄면 매출이 멈추는 구조',
+        summary: '광고를 통해 신규 고객은 들어오지만, 광고를 멈추면 문의도 멈춥니다. 광고는 "부스터"지 "엔진"이 아닙니다. 엔진(재방문 구조) 없이 부스터만 밟으면, 연료(돈)가 금방 떨어집니다.',
+        warning: '광고비는 계속 오르고, 효율은 계속 떨어집니다. 지금 구조를 바꾸지 않으면, 3개월 뒤에는 광고비를 더 써야 같은 매출을 유지할 수 있습니다.',
+        doList: ['이번 달 광고로 온 고객 중 "재방문한 사람"이 몇 명인지 체크하세요', '광고 없이 들어온 고객이 있다면, 어디서 왔는지 분석하세요', '기존 고객 재방문율부터 높이는 데 집중하세요'],
+        stopList: ['광고비 늘려서 문제 해결하려는 시도', '새로운 광고 채널 추가하기', '재방문 구조 없이 신규 유입만 늘리기'],
+        notYetList: ['광고 A/B 테스트 세분화', '리타겟팅 캠페인', '퍼포먼스 마케팅 고도화']
+    },
+    stagnant: {
+        name: '성장 정체형 원장',
+        subtitle: '지금은 버티지만 다음이 안 보이는 상태',
+        summary: '현재 매출은 나쁘지 않지만, 성장이 멈춰있습니다. 새로운 시도를 하고 싶지만 뭘 해야 할지 모르겠고, 지금 것을 잃을까 두렵습니다. 안정은 좋지만, 정체는 결국 하락의 시작입니다.',
+        warning: '시장은 계속 바뀌고, 경쟁은 심해집니다. 지금 구조를 업그레이드하지 않으면, 3개월 뒤에는 "예전엔 잘 됐는데..."라는 말을 하게 됩니다.',
+        doList: ['현재 매출 구조에서 "성장 여지가 있는 부분"을 찾아보세요', '객단가를 높일 수 있는 메뉴/서비스가 있는지 검토하세요', '상위 10% 고객이 누구인지 분석하세요'],
+        stopList: ['"유지만 하자"는 마인드로 운영하기', '새로운 시도 없이 기존 방식만 반복하기', '경쟁 샵의 성장을 무시하기'],
+        notYetList: ['전면적인 리브랜딩', '신규 지점 확장', '직원 채용 확대']
+    },
+    noSystem: {
+        name: '시스템 미구축형 원장',
+        subtitle: '원장님이 빠지면 멈추는 구조',
+        summary: '모든 것이 원장님의 머릿속에 있습니다. 고객 정보도, 운영 방식도, 노하우도 모두 원장님만 알고 있습니다. 이 상태로는 하루도 쉴 수 없고, 성장해도 몸이 더 바빠질 뿐입니다.',
+        warning: '지금 구조는 "원장님 = 샵"입니다. 원장님이 아프거나 쉬면 샵도 멈춥니다. 3개월 뒤에도 이 구조라면, 성장은커녕 체력 고갈이 먼저 옵니다.',
+        doList: ['자주 하는 답변/응대를 템플릿으로 만들어두세요', '고객 정보를 엑셀이나 앱에 기록하기 시작하세요', '이번 주 반복한 일을 "프로세스"로 정리해보세요'],
+        stopList: ['모든 것을 머릿속에만 담아두기', '직원 없이 혼자 다 하려고 하기', '기록 없이 "기억"에 의존하기'],
+        notYetList: ['CRM 시스템 도입', '예약 자동화 툴', '재고관리 시스템']
+    }
+};
+
+
+function determineOwnerType(answers) {
+    const categoryScores = {};
+    CATEGORIES.forEach(cat => { categoryScores[cat.id] = 0; });
+
+    answers.forEach((answer, index) => {
+        const question = QUESTIONS[index];
+        if (question && answer !== undefined) {
+            const selectedAnswer = question.answers[answer];
+            if (selectedAnswer) {
+                categoryScores[question.category] += selectedAnswer.score;
+            }
+        }
+    });
+
+    const categoryAverages = {};
+    Object.keys(categoryScores).forEach(key => {
+        categoryAverages[key] = categoryScores[key] / 5;
+    });
+
+    const totalScore = Object.values(categoryScores).reduce((a, b) => a + b, 0);
+    const avgScore = totalScore / 30;
+
+    if (categoryAverages.revenue < 2 && categoryAverages.execution < 2) return 'intuitive';
+    if (avgScore < 2 && categoryAverages.execution < 1.8) return 'overworked';
+    if (categoryAverages.ads < 2 && categoryAverages.retention < 2) return 'adDependent';
+    if (avgScore > 2.2 && avgScore < 2.8) return 'stagnant';
+    if (categoryAverages.execution < 2 || categoryAverages.retention < 1.8) return 'noSystem';
+
+    const typeMapping = { revenue: 'intuitive', acquisition: 'adDependent', retention: 'noSystem', content: 'overworked', ads: 'adDependent', execution: 'noSystem' };
+    let lowestCategory = Object.keys(categoryAverages).reduce((a, b) => categoryAverages[a] < categoryAverages[b] ? a : b);
+    return typeMapping[lowestCategory] || 'overworked';
+}
+
+// ========================================
+// 앱 로직
+// ========================================
+const AppState = { currentQuestion: 0, answers: [], userType: null, userId: null };
+const DOM = {};
+
+document.addEventListener('DOMContentLoaded', () => {
+    initializeDOM();
+    initializeApp();
+});
+
+function initializeDOM() {
+    DOM.loadingScreen = document.getElementById('loading-screen');
+    DOM.app = document.getElementById('app');
+    DOM.progressContainer = document.getElementById('progress-container');
+    DOM.progressFill = document.getElementById('progress-fill');
+    DOM.progressText = document.getElementById('progress-text');
+    DOM.introSection = document.getElementById('intro-section');
+    DOM.diagnosisSection = document.getElementById('diagnosis-section');
+    DOM.analyzingSection = document.getElementById('analyzing-section');
+    DOM.resultSection = document.getElementById('result-section');
+    DOM.questionCategory = document.getElementById('question-category');
+    DOM.questionNumber = document.getElementById('question-number');
+    DOM.questionText = document.getElementById('question-text');
+    DOM.answersContainer = document.getElementById('answers-container');
+    DOM.btnPrev = document.getElementById('btn-prev');
+    DOM.resultType = document.getElementById('result-type');
+    DOM.resultSubtitle = document.getElementById('result-subtitle');
+    DOM.resultSummary = document.getElementById('result-summary');
+    DOM.resultWarning = document.getElementById('result-warning');
+    DOM.resultDoList = document.getElementById('result-do-list');
+    DOM.resultStopList = document.getElementById('result-stop-list');
+    DOM.resultNotYetList = document.getElementById('result-notyet-list');
+    DOM.adminPanel = document.getElementById('admin-panel');
+}
+
+function initializeApp() {
+    AppState.userId = localStorage.getItem('bsc_user_id') || generateUserId();
+    localStorage.setItem('bsc_user_id', AppState.userId);
+
+    const savedState = localStorage.getItem('bsc_state');
+    if (savedState) Object.assign(AppState, JSON.parse(savedState));
+
+    setTimeout(() => {
+        DOM.loadingScreen.classList.add('fade-out');
+        setTimeout(() => {
+            DOM.loadingScreen.classList.add('hidden');
+            DOM.app.classList.remove('hidden');
+            if (AppState.userType) showResult();
+            else if (AppState.answers.length > 0) { showDiagnosis(); showQuestion(AppState.currentQuestion); }
+        }, 500);
+    }, 2000);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key === 'A') showAdmin();
+    });
+}
+
+function generateUserId() { return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9); }
+function saveState() { localStorage.setItem('bsc_state', JSON.stringify(AppState)); }
+
+function startDiagnosis() {
+    DOM.introSection.classList.add('hidden');
+    DOM.diagnosisSection.classList.remove('hidden');
+    DOM.progressContainer.classList.remove('hidden');
+    AppState.currentQuestion = 0;
+    AppState.answers = [];
+    showQuestion(0);
+    saveState();
+}
+
+function showQuestion(index) {
+    if (index < 0 || index >= QUESTIONS.length) return;
+    const question = QUESTIONS[index];
+    const category = CATEGORIES.find(c => c.id === question.category);
+
+    DOM.questionCategory.textContent = category.name;
+    DOM.questionNumber.textContent = `Q${index + 1}`;
+    DOM.questionText.textContent = question.text;
+
+    const progress = ((index + 1) / QUESTIONS.length) * 100;
+    DOM.progressFill.style.width = `${progress}%`;
+    DOM.progressText.textContent = `${index + 1} / ${QUESTIONS.length}`;
+
+    DOM.btnPrev.classList.toggle('hidden', index === 0);
+
+    DOM.answersContainer.innerHTML = '';
+    question.answers.forEach((answer, answerIndex) => {
+        const option = document.createElement('div');
+        option.className = 'answer-option' + (AppState.answers[index] === answerIndex ? ' selected' : '');
+        option.innerHTML = `<div class="answer-radio"></div><span class="answer-text">${answer.text}</span>`;
+        option.addEventListener('click', () => selectAnswer(index, answerIndex));
+        DOM.answersContainer.appendChild(option);
+    });
+}
+
+function selectAnswer(questionIndex, answerIndex) {
+    AppState.answers[questionIndex] = answerIndex;
+    AppState.currentQuestion = questionIndex;
+    saveState();
+
+    const options = DOM.answersContainer.querySelectorAll('.answer-option');
+    options.forEach((opt, idx) => opt.classList.toggle('selected', idx === answerIndex));
+
+    setTimeout(() => {
+        if (questionIndex < QUESTIONS.length - 1) {
+            AppState.currentQuestion = questionIndex + 1;
+            showQuestion(AppState.currentQuestion);
+            saveState();
+        } else {
+            showAnalyzing();
+        }
+    }, 400);
+}
+
+function prevQuestion() {
+    if (AppState.currentQuestion > 0) {
+        AppState.currentQuestion--;
+        showQuestion(AppState.currentQuestion);
+        saveState();
+    }
+}
+
+function showAnalyzing() {
+    DOM.diagnosisSection.classList.add('hidden');
+    DOM.progressContainer.classList.add('hidden');
+    DOM.analyzingSection.classList.remove('hidden');
+
+    setTimeout(() => { document.getElementById('step-2').classList.add('active'); document.getElementById('step-2').querySelector('.step-icon').textContent = '✓'; }, 1500);
+    setTimeout(() => { document.getElementById('step-3').classList.add('active'); document.getElementById('step-3').querySelector('.step-icon').textContent = '✓'; }, 3000);
+    setTimeout(() => {
+        AppState.userType = determineOwnerType(AppState.answers);
+        saveState();
+        saveUserData();
+        showResult();
+    }, 4000);
+}
+
+function showResult() {
+    DOM.analyzingSection.classList.add('hidden');
+    DOM.introSection.classList.add('hidden');
+    DOM.diagnosisSection.classList.add('hidden');
+    DOM.progressContainer.classList.add('hidden');
+    DOM.resultSection.classList.remove('hidden');
+
+    const typeData = OWNER_TYPES[AppState.userType];
+    DOM.resultType.textContent = typeData.name;
+    DOM.resultSubtitle.textContent = typeData.subtitle;
+    DOM.resultSummary.textContent = typeData.summary;
+    DOM.resultWarning.textContent = typeData.warning;
+
+    DOM.resultDoList.innerHTML = '';
+    typeData.doList.forEach(item => { const li = document.createElement('li'); li.textContent = item; DOM.resultDoList.appendChild(li); });
+
+    DOM.resultStopList.innerHTML = '';
+    typeData.stopList.forEach(item => { const li = document.createElement('li'); li.textContent = item; DOM.resultStopList.appendChild(li); });
+
+    DOM.resultNotYetList.innerHTML = '';
+    typeData.notYetList.forEach(item => { const li = document.createElement('li'); li.textContent = item; DOM.resultNotYetList.appendChild(li); });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function saveUserData() {
+    const userData = { id: AppState.userId, type: AppState.userType, answers: AppState.answers, lastActivity: new Date().toISOString() };
+    const allUsers = JSON.parse(localStorage.getItem('bsc_all_users') || '[]');
+    const existingIndex = allUsers.findIndex(u => u.id === userData.id);
+    if (existingIndex >= 0) allUsers[existingIndex] = userData;
+    else allUsers.push(userData);
+    localStorage.setItem('bsc_all_users', JSON.stringify(allUsers));
+}
+
+function showAdmin() {
+    DOM.adminPanel.classList.remove('hidden');
+    const allUsers = JSON.parse(localStorage.getItem('bsc_all_users') || '[]');
+    document.getElementById('total-users').textContent = allUsers.length;
+
+    const tbody = document.getElementById('admin-table-body');
+    tbody.innerHTML = '';
+    const typeNames = { intuitive: '감각형', overworked: '노력 과다형', adDependent: '광고 의존형', stagnant: '성장 정체형', noSystem: '시스템 미구축형' };
+
+    allUsers.forEach(user => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${user.id.slice(0, 12)}...</td><td>${typeNames[user.type] || '-'}</td><td>${user.lastActivity ? new Date(user.lastActivity).toLocaleDateString('ko-KR') : '-'}</td>`;
+        tbody.appendChild(tr);
+    });
+}
+
+function closeAdmin() { DOM.adminPanel.classList.add('hidden'); }
+
+if (window.location.search.includes('admin=true')) {
+    document.addEventListener('DOMContentLoaded', () => setTimeout(showAdmin, 2500));
+}
+
+function resetApp() { localStorage.removeItem('bsc_state'); localStorage.removeItem('bsc_user_id'); location.reload(); }
+window.BSC = { state: AppState, reset: resetApp, showAdmin: showAdmin };
+</script>
+</body>
+</html>
