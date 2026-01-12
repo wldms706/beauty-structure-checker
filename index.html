@@ -750,6 +750,122 @@ body {
     font-weight: 400;
 }
 
+/* 데이터 수집 폼 */
+.result-contact-form {
+    background: var(--color-white);
+    border: 1px solid var(--color-accent);
+    padding: var(--space-xl);
+    margin-top: var(--space-xl);
+    text-align: center;
+}
+
+.contact-form-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.contact-icon {
+    font-size: 1.25rem;
+    color: var(--color-accent);
+}
+
+.contact-form-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+.contact-form-desc {
+    font-size: 0.875rem;
+    color: var(--color-gray);
+    line-height: 1.7;
+    margin-bottom: var(--space-lg);
+}
+
+.contact-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+.contact-input {
+    width: 100%;
+    padding: var(--space-md);
+    border: 1px solid var(--color-border);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--color-dark);
+    transition: border-color var(--transition-fast);
+}
+
+.contact-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+.contact-input::placeholder {
+    color: var(--color-light-gray);
+}
+
+.btn-submit-contact {
+    width: 100%;
+    max-width: 200px;
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.btn-submit-contact:hover {
+    background: var(--color-accent-light);
+    border-color: var(--color-accent-light);
+}
+
+.contact-form-note {
+    font-size: 0.75rem;
+    color: var(--color-light-gray);
+    margin-top: var(--space-md);
+}
+
+.contact-form-success {
+    display: none;
+    padding: var(--space-lg);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    margin-top: var(--space-md);
+}
+
+.contact-form-success.show {
+    display: block;
+}
+
+.contact-form-success p {
+    font-size: 0.9375rem;
+    color: var(--color-dark);
+}
+
+/* 결과 액션 버튼 */
+.result-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+}
+
+.btn-restart {
+    padding: var(--space-md) var(--space-xl);
+}
+
+.btn-restart .btn-arrow {
+    margin-right: var(--space-sm);
+}
+
+.btn-restart:hover .btn-arrow {
+    transform: translateX(-3px);
+}
 
 /* 푸터 */
 .footer {
@@ -1063,6 +1179,33 @@ body {
 
                     <div class="result-closing">
                         <p class="closing-message">이 가이드는 현재 단계에 맞춰 제공된 최소한의 방향입니다.<br>이 이상은 지금 단계에서 다루지 않습니다.</p>
+                    </div>
+
+                    <!-- 데이터 수집 폼 -->
+                    <div class="result-contact-form">
+                        <div class="contact-form-header">
+                            <span class="contact-icon">✉</span>
+                            <h3>맞춤 가이드 받기</h3>
+                        </div>
+                        <p class="contact-form-desc">더 자세한 운영 가이드와 실행 팁을 받아보시겠어요?<br>연락처를 남겨주시면 맞춤 자료를 보내드립니다.</p>
+                        <div class="contact-form-fields">
+                            <input type="text" id="user-name" class="contact-input" placeholder="이름 (샵명)">
+                            <input type="tel" id="user-phone" class="contact-input" placeholder="연락처 (010-0000-0000)">
+                            <input type="text" id="user-region" class="contact-input" placeholder="지역 (예: 서울 강남)">
+                        </div>
+                        <button class="btn btn-primary btn-submit-contact" onclick="submitContactInfo()">
+                            <span>자료 받기</span>
+                            <span class="btn-arrow">→</span>
+                        </button>
+                        <p class="contact-form-note">* 수집된 정보는 자료 발송 외 다른 용도로 사용되지 않습니다.</p>
+                    </div>
+
+                    <!-- 처음으로 버튼 -->
+                    <div class="result-actions">
+                        <button class="btn btn-secondary btn-restart" onclick="restartDiagnosis()">
+                            <span class="btn-arrow">←</span>
+                            <span>처음부터 다시 하기</span>
+                        </button>
                     </div>
                 </div>
             </section>
@@ -1430,7 +1573,61 @@ if (window.location.search.includes('admin=true')) {
 }
 
 function resetApp() { localStorage.removeItem('bsc_state'); localStorage.removeItem('bsc_user_id'); location.reload(); }
-window.BSC = { state: AppState, reset: resetApp, showAdmin: showAdmin };
+
+function restartDiagnosis() {
+    AppState.currentQuestion = 0;
+    AppState.answers = [];
+    AppState.userType = null;
+    saveState();
+
+    DOM.resultSection.classList.add('hidden');
+    DOM.introSection.classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function submitContactInfo() {
+    const name = document.getElementById('user-name').value.trim();
+    const phone = document.getElementById('user-phone').value.trim();
+    const region = document.getElementById('user-region').value.trim();
+
+    if (!name || !phone) {
+        if (!name) document.getElementById('user-name').style.borderColor = '#A65D57';
+        if (!phone) document.getElementById('user-phone').style.borderColor = '#A65D57';
+        setTimeout(() => {
+            document.getElementById('user-name').style.borderColor = '';
+            document.getElementById('user-phone').style.borderColor = '';
+        }, 2000);
+        return;
+    }
+
+    // 연락처 정보 저장
+    const contactData = {
+        id: AppState.userId,
+        name: name,
+        phone: phone,
+        region: region,
+        type: AppState.userType,
+        submittedAt: new Date().toISOString()
+    };
+
+    const allContacts = JSON.parse(localStorage.getItem('bsc_contacts') || '[]');
+    allContacts.push(contactData);
+    localStorage.setItem('bsc_contacts', JSON.stringify(allContacts));
+
+    // 폼 숨기고 성공 메시지 표시
+    const formFields = document.querySelector('.contact-form-fields');
+    const submitBtn = document.querySelector('.btn-submit-contact');
+    const formNote = document.querySelector('.contact-form-note');
+    const formDesc = document.querySelector('.contact-form-desc');
+
+    formFields.style.display = 'none';
+    submitBtn.style.display = 'none';
+    formNote.style.display = 'none';
+    formDesc.innerHTML = '<strong>✓ 등록되었습니다!</strong><br>빠른 시일 내에 맞춤 자료를 보내드리겠습니다.';
+    formDesc.style.color = 'var(--color-dark)';
+}
+
+window.BSC = { state: AppState, reset: resetApp, showAdmin: showAdmin, restart: restartDiagnosis };
 </script>
 </body>
 </html>
